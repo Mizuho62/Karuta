@@ -1,0 +1,58 @@
+<h1>Karutageek</h1>
+<h3>投稿</h3>
+<div class="game">
+  <p><%= @game.created_at %></p>  
+  <p><%= @game.level %> </p>  
+  <p><%= @game.hand %> </p>
+  <p><%= @game.result %> </p>
+  <p><%= @game.count %></p> 
+  <p><%= @game.about %></p>
+  <%= image_tag @game.image_url, size: "250x200" if @game.image? %>  
+
+    <% if user_signed_in? %>
+      <% if current_user.already_liked?(@game) %>
+        <%= button_to game_like_path(@game), method: :delete do %>
+          <p>いいねを取り消す</p><%= @game.likes.count %>
+        <% end %>
+      <% else %>
+        <%= button_to game_likes_path(@game), method: :post do %>
+          <p>いいね</p><%= @game.likes.count %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <p>いいねの数 = </p><%= @game.likes.count %>
+    <% end %>
+
+    <div class="comment-wrapper">
+    <p>コメント一覧</p>
+    <% @comments.each do |c| %>
+      <div>
+        <%= c.user.email unless c.user.blank? %>
+        <br>
+        <%= c.content %>
+      </div>
+        <br>
+    <% end %>
+  
+    <% if user_signed_in? %>
+      <%= form_with(model: [@game, @comment], local: true) do |f| %>
+        <%= f.text_area :content %>
+        <%= button_tag type: "submit" do %>
+          <i class="far fa-comments"></i> コメントする
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  
+  <%= link_to "編集する", edit_game_path(@game.id) %>
+
+</div>
+
+<h2>いいねしたユーザー</h2>
+<% @game.liked_users.each do |user| %>
+  <li><%= user.email %></li>
+<% end %>
+
+
+
+<%= link_to "Game一覧に戻る", games_path %>

@@ -1,0 +1,41 @@
+<div class="games_container">
+<%= link_to "新規投稿", new_game_path %>
+<%#= link_to '日記をかく', new_game_path %>
+<%#= month_calendar events: @games do |date, blogs| %>
+  <%#= date.day %>
+<%# end %>
+
+   <% @games.each do |t| %>
+    <div class="game">
+      <%= image_tag t.user.image_url, size: "250x200" if t.user.image? %>
+      <%= t.user.email %>
+    
+      <%= t.level %>   
+      <%= t.hand %> 
+      <%= t.result %> 
+      <%= t.count %> 
+      <%= t.about %> 
+      <%= image_tag t.image_url, size: "250x200" if t.image? %>  
+      <%= link_to "詳細へ", game_path(t.id) %> 
+    </div>
+ 
+
+<% if user_signed_in? %>
+      <% if current_user.already_liked?(t) %>
+          <%= button_to game_like_path(id: t.id, game_id: t.id), method: :delete do %>
+              <p>いいねを取り消す</p><%= t.likes.count %>
+          <% end %>
+      <% else %>
+          <%= button_to game_likes_path(id: t.id, game_id: t.id), method: :post do %>
+              <p>いいね</p><%= t.likes.count %>
+          <% end %>
+      <% end %>
+  <% else %>
+      <p>いいねの数 = </p><%= t.likes.count %>
+  <% end %>
+
+<% if current_user.already_liked?(t) %>
+ 
+ <% end %>
+</div>
+<% end %>

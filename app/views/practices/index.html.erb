@@ -1,0 +1,6 @@
+<div class="practices-container">
+  <% @practices.each do |t| %>
+    <div class="practice">
+      <%= t.user.email %> ＃追記
+    </div>
+  <% end %>
