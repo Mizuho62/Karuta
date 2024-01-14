@@ -15,8 +15,6 @@ resources :practices
 
   resources :users, only: [:show] # ユーザーマイページへのルーティング
 
-  
-  root 'users#mypage'
   post 'games' => 'games#create'
 end
 
