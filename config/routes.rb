@@ -15,6 +15,8 @@ resources :practices
 
   resources :users, only: [:show] # ユーザーマイページへのルーティング
 
+  
+  root 'game#index'
   post 'games' => 'games#create'
 end
 
