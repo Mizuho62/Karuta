@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   sessions: 'users/sessions' }
 
   resources :users, only: [:show] # ユーザーマイページへのルーティング
-  root 'game#index'
+  root 'games#index'
 end
 
