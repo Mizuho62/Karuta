@@ -9,8 +9,9 @@
     <div class="game">
       <%= image_tag t.user.image_url, size: "250x200" if t.user.image? %>
       <%= t.user.email %>
-    
-      <%= t.level %>   
+    <div class="level">
+      <%= t.level %>  
+    </div> 
       <%= t.hand %> 
       <%= t.result %> 
       <%= t.count %> 
@@ -21,18 +22,18 @@
  
 
 <% if user_signed_in? %>
-      <% if current_user.already_liked?(t) %>
-          <%= button_to game_like_path(id: t.id, game_id: t.id), method: :delete do %>
-              <p>いいねを取り消す</p><%= t.likes.count %>
-          <% end %>
-      <% else %>
-          <%= button_to game_likes_path(id: t.id, game_id: t.id), method: :post do %>
-              <p>いいね</p><%= t.likes.count %>
-          <% end %>
-      <% end %>
-  <% else %>
-      <p>いいねの数 = </p><%= t.likes.count %>
-  <% end %>
+    <% if current_user.already_liked?(t) %>
+        <%= button_to game_like_path(id: t.id, game_id: t.id), method: :delete do %>
+            <p>いいねを取り消す</p><%= t.likes.count %>
+        <% end %>
+    <% else %>
+        <%= button_to game_likes_path(id: t.id, game_id: t.id), method: :post do %>
+            <p>いいね</p><%= t.likes.count %>
+        <% end %>
+    <% end %>
+<% else %>
+    <p>いいねの数 = </p><%= t.likes.count %>
+<% end %>
 
 <% if current_user.already_liked?(t) %>
  
